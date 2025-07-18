@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class KategoriController extends Controller
@@ -13,7 +14,12 @@ class KategoriController extends Controller
     {
         $title = "Kategori Buku";
         $data = Kategori::all();
-        return view('kategoris.index', compact(['title', 'data']));
+
+        if(Auth::user()->role =='admin'){
+            return view('kategoris.index', compact(['title', 'data']));
+        }else {
+            echo "Anda tidak memiliki akses";
+        }
     }
     public function viewTambah()
     {

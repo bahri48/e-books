@@ -14,10 +14,15 @@
             <div class="text-xl font-semibold text-gray-800">Logo</div>
 
             <div class="hidden md:flex space-x-6">
+            @if(Auth::user()->role === 'admin')
                 <a href="/kategori" class="text-gray-700 hover:text-blue-600">Kategori</a>
                 <a href="/books" class="text-gray-700 hover:text-blue-600">Buku</a>
                 <a href="/users" class="text-gray-700 hover:text-blue-600">Users</a>
-                <a href="/login" class="text-gray-700 hover:text-blue-600">Login</a>
+                <a href="/logout" class="text-gray-700 hover:text-blue-600">Logout</a>
+            @elseif(Auth::user()->role === 'pengguna')
+                <a href="/books" class="text-gray-700 hover:text-blue-600">Buku</a>
+                <a href="/logout" class="text-gray-700 hover:text-blue-600">Logout</a>
+            @endif
             </div>
 
             <!-- Mobile Menu Button -->
@@ -33,10 +38,15 @@
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden mt-2 space-y-2 px-4">
+            @if(Auth::user()->role === 'admin')
             <a href="/kategori" class="block text-gray-700 hover:text-blue-600">Kategori</a>
             <a href="/books" class="block  text-gray-700 hover:text-blue-600">Buku</a>
             <a href="/users" class="block  text-gray-700 hover:text-blue-600">Users</a>
-            <a href="/login" class="block text-gray-700 hover:text-blue-600">Login</a>
+            <a href="/logout" class="block text-gray-700 hover:text-blue-600">Logout</a>
+            @elseif(Auth::user()->role === 'pengguna')
+            <a href="/books" class="block  text-gray-700 hover:text-blue-600">Buku</a>
+                <a href="/logout" class="text-gray-700 hover:text-blue-600">Logout</a>
+            @endif
         </div>
     </nav>
 

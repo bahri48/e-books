@@ -31,7 +31,7 @@ Route::controller(KategoriController::class)->group(function () {
     Route::get('/delete/{id}', 'Delete');
 });
 
-Route::controller(BukuController::class)->group(function () {
+Route::middleware('auth')->controller(BukuController::class)->group(function () {
     Route::get('/books', 'getBuku');
     Route::get('/tambah-buku', 'viewTambah');
     Route::post('/post-tambah-buku', 'TambahBuku');
@@ -40,7 +40,7 @@ Route::controller(BukuController::class)->group(function () {
     Route::get('/delete-buku/{id}', 'deleteBuku');
 });
 
-Route::controller(UserController::class)->group(function(){
+Route::middleware('auth')->controller(UserController::class)->group(function(){
     Route::get('/users', 'users');
     Route::get('/view-add', 'viewTambah');
     Route::post('/post-add', 'postAdd');
@@ -51,5 +51,5 @@ Route::controller(UserController::class)->group(function(){
 
 Route::get('/login',[AuthController::class,'loginView']);
 Route::post('/login-post',[AuthController::class,'postLogin']);
-Route::get('/logout', [AuthController::class, 'logout']);
-Route::get('/dashboard',[DashboardController::class,'dashboard']);
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware('auth');

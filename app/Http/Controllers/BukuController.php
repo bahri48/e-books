@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BukuController extends Controller
 {
     public function getBuku()
     {
         $data = Buku::with('JoinToKategori')->get();
-        // dd($data);
-        return view('buku.index', compact(['data']));
+        if (Auth::user()->role == 'admin' || Auth::user()->role='pengguna') {
+            return view('buku.index', compact(['data']));
+        }else{
+            echo 'Anda tidak memiliki akses ke halaman ini, karena anda bukan role admin atau pengguna';
+        }
     }
     public function viewTambah()
     {

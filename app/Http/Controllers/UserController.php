@@ -4,16 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+ 
 class UserController extends Controller
 {
     public function users()
     {
         $title = 'Data User';
         $data = User::all();
-        return view('users.index', compact(['title', 'data']));
+        
+        if(Auth::user()->role =='admin'){
+            return view('users.index', compact(['title', 'data']));
+        }else {
+            echo "Anda tidak memiliki akses";
+        }
     }
 
     public function viewTambah()
